@@ -1,0 +1,109 @@
+{% extends "bubustatus/base.html" %}
+{% load bubustatus %}
+
+{% block title %}
+  {% if params %}
+    Filter结果
+  {% else %}
+    最新数据
+  {% endif %} 
+{% endblock %}
+
+{% block content %}
+<h2 class="ui header">
+  <i class="table icon"></i>
+    <div class="content">
+        {% if params %}
+          Filter结果
+        {% else %}
+          最新数据
+        {% endif %}
+    </div>
+</h2>
+
+  <form class="ui form">
+    <div class="four fields">
+       <div class="ui field labeled input">
+         <a class="ui label">Label</a>
+         <input type="text" placeholder="输入label名" value="{% if params.label %}{{ params.label }}{% endif %}" name="label">
+       </div>
+       <div class="ui field labeled input">
+         <a class="ui label">Name</a>
+         <input type="text" placeholder="输入Step名" value="{% if params.name %} {{ params.name }}{% endif %}" name="name">
+       </div>
+       <div class="ui field labeled input">
+         <a class="ui label">Status</a>
+         <input type="text" placeholder="输入status" value="{% if params.status %}{{ params.status }}{% endif %}" name="status">
+       </div>
+    </div>
+    
+      {% if params %}
+      <div class="ui labeled button" tabindex="0">
+        <button class="ui teal button" type="submit">
+          Filter
+        </button>
+        <a class="ui basic teal left pointing label">
+        {{ paginator.count }}
+        </a>
+      </div>
+      {% else %}
+      <button class="ui teal button" type="submit">Filter</button>
+      {% endif %}
+  <form>
+   <table class="ui celled table">
+     <thead>
+       <tr>
+         <th>Label</th>
+         <th>Name</th>
+         <th>Status</th>
+         <th>Ok?</th>
+         <th>Insert</th>
+         <th>Confirm Time</th>
+       </tr>
+     </thead>
+     <tbody>
+       {% for step in steps %}
+       <tr title="{{step.desc}}">
+           <td><a class='item' href="/?label={{step.label}}">{{step.label.name|cut_string:12}}</a></td>
+           <td><a class='item' href="/step/{{step.label.name}}/{{step.name}}">{{step.name|cut_string:24}}</a></td>
+           <td><b>{{step.status|cut_string:10}}</b></td>
+           <td>
+               {% if step.is_confirm %}
+               <i class="checkmark icon"></i>
+               {% else %}
+               <i class="remove icon"></i>
+               {% endif %}
+           </td>
+           <td>{{step.insert|date:"Y-m-d H:i:s"}}</td>
+           <td>{{step.confirm_time|date:"Y-m-d H:i:s"}}</td>
+       </tr>
+       {% endfor %}
+      </tbody>
+      <tfoot>
+         <tr><th colspan="6">
+           <div class="ui right floated">
+             <div class="ui buttons">
+               {% if page_obj.has_previous %}
+               <button class="small ui positive button" type="button">
+                   <a href="?page={{page_obj.previous_page_number}}{% if params %}&{{params.urlencode}}{% endif %}">Prev</a>
+               {% else %}
+               <button class="small ui disabled button">Perv
+               {% endif %}
+               </button>
+
+               <div class="or" data-text="{{page_obj.number}}"></div>
+
+               {% if page_obj.has_next %}
+               <button class="small ui positive button" type="button">
+                 <a href="?page={{page_obj.next_page_number}}{% if params %}&{{params.urlencode}}{% endif %}">Next</a>
+               {% else %}
+               <button class="small ui disabled button">Next
+               {% endif %}
+               </button>
+            </div>
+          </div>
+         </th>
+      </tr>
+    </tfoot>
+  </table>
+{% endblock %}

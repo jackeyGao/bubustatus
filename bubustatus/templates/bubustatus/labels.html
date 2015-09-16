@@ -1,0 +1,28 @@
+{% extends "bubustatus/base.html" %}
+{% load bubustatus %}
+
+{% block title %}Labels{% endblock %}
+
+{% block content %}
+<h3 class="ui header">
+  <i class="grid layout icon"></i>
+  <div class="content">Labels</div>
+</h3>
+
+<div class="ui six column grid">
+  {% for labels in groups %}
+  <div class="row">
+    {% for label in labels %}
+    <div class="column">
+      <div class="ui fluid card">
+        <div class="content">
+          <div class="header" href="#"><a href="/?label={{label.name}}">{{label.name|cut_string:12}}</a></div>
+          <div class="floating ui circular teal label">{{steps|in_label_name:label.name|length}}</div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+<html>
+<head>
+  <!-- Standard Meta -->
+  <meta charset="utf-8" />
+  <!-- Site Properities -->
+  <title> {% block title %}{% endblock %} | 状态系统</title>
+  <link rel="stylesheet" type="text/css" href="/static/bubustatus/css/semantic.css">
+</head>
+
+<body>
+<div class="ui ten wide column centered grid">
+  <div class="twelve wide column centered">
+    <div id="header">
+        <h1 class="ui header"><a href="/">状态系统</a></h1>
+    </div>
+ 
+    <div class="ui inverted fixed hidden menu">
+      <a class="item"><h3 class="ui green header">状态系统</h3></a>
+      <a class="item" href="/"><b>Home</b></a>
+      <a class="item" href="/labels"><b>Labels</b></a>
+      <div class="right menu">
+        <a class="item" href="/admin/">Admin</a>
+        <a class="item">Help</a>
+      </div>
+    </div>
+    {% block content %}{% endblock %}
+  </div>
+</div>
+</body>
+</html>
+
