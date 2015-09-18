@@ -112,7 +112,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
 
 TATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, '../static'),
 )
 
 
