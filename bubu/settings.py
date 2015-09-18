@@ -122,7 +122,7 @@ QINIU_SECRET_KEY = 'l7fqBwgd-3M5ApcquLCFb-KKmLmNcIrlpQGJbBem'
 QINIU_BUCKET_NAME = 'privacy'
 #QINIU_BUCKET_DOMAIN = '7xlitg.com1.z0.glb.clouddn.com'
 QINIU_BUCKET_DOMAIN = 'dn-omem.qbox.me'
-QINIU_SECURE_URL = True
+QINIU_SECURE_URL = 'true'
 
 
 
