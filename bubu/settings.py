@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'k&r(v44iud(b4^v_w#_8e(szab)@5g62$@=2xg6&#=88&$lb%d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -112,10 +112,16 @@ STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
 
 TATICFILES_DIRS = (
-    os.path.join(BASE_DIR, '../static'),
+    os.path.join(BASE_DIR, 'static'),
 )
 
-print TATICFILES_DIRS
+
+STATICFILES_STORAGE = "qiniustorage.backends.QiniuStorage"
+QINIU_ACCESS_KEY = '-9GvtvlzlYsJThtrNMVocrhcsh3lmOTAuY6aXEBT'
+QINIU_SECRET_KEY = 'l7fqBwgd-3M5ApcquLCFb-KKmLmNcIrlpQGJbBem'
+QINIU_BUCKET_NAME = 'privacy'
+QINIU_BUCKET_DOMAIN = '7xlitg.com1.z0.glb.clouddn.com'
+
 
 
 LOGGING = {
