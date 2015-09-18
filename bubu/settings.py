@@ -115,6 +115,8 @@ TATICFILES_DIRS = (
     os.path.join(BASE_DIR, '../static'),
 )
 
+print TATICFILES_DIRS
+
 
 LOGGING = {
     'version': 1,
