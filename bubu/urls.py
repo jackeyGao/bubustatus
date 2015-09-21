@@ -4,6 +4,7 @@ from django.conf import settings
 
 from bubustatus.views import labels
 from bubustatus.views import step
+from bubustatus.views import timeline
 from bubustatus.views import StepListView
 from bubustatus import api
 from rest_framework import routers
@@ -19,6 +20,7 @@ urlpatterns = [
 
     url(r'^$', StepListView.as_view()),
     url(r'^labels$', labels),
+    url(r'^timeline$', timeline),
     url(r'^step/(?P<label>.*)/(?P<name>.*)$', step),
 
     url(r'^admin/', include(admin.site.urls)),

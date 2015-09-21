@@ -4,115 +4,120 @@
 {% block title %}详细页面{% endblock %}
 
 {% block content %}
-<h3 class="ui header">
-  <i class="toggle right icon"></i>
-  <div class="content">总体进度</div>
-</h3>
-
-<div class="ui small green progress" data-percent="{{progress}}">
-  <div class="bar" style="transition-duration: 300ms; width: {{progress}}%;">
-    <div class="progress">{{progress}}%</div>
-  </div>
-
-  <div class="label">
-    <div class="ui grid">
-      <div class="three column row">
-        <div class="column">开始于{{start_time.humanize}}</div>
-        <div class="column">
-          {% if progress == 100 %}
-          已完成所有步骤
-          {% else %}
-          {{confirm_steps|length}} / {{step_count}}
-          {% endif %}
-        </div>
-        <div class="column">已持续{{diff_time}}</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<h3 class="ui header">
-  <i class="columns icon"></i>
-  <div class="content">进度视图</div>
-</h3>
-
 <div class="ui grid">
-  <div class="eight wide column">
-    <div class="ui vertical steps">
-      {% for step in steps %}
-      {% if step.is_confirm %}
-      <div class="completed step" title="{{step.desc}}">
-        <i class="truck icon"></i>
-      {% else %}
-      <div class="active step" title="{{step.desc}}">
-        <i class="spinner icon"></i>
-      {% endif %}
-        <div class="content">
-          <div class="title">{{step.status}}</div>
-          {% if step.is_confirm %}
-          <div class="description">{{step.confirm_time|date:"Y-m-d H:i:s"}}</div>
-          {% else %}
-          <div class="description">正在执行..</div>
-          {% endif %}
-        </div>
-        {% if step.order == 1 %}
-        {% else %}
-        <div class="floating ui circular teal label" title="第{{step.order}}次执行<{{step.status}}>">{{step.order}}</div>
-        {% endif %}
+  <div class="three wide column"></div>
+  <div class="ten wide column">
+    <h3 class="ui header">
+      <i class="toggle right icon"></i>
+      <div class="content">总体进度</div>
+    </h3>
+    
+    <div class="ui small green progress" data-percent="{{progress}}">
+      <div class="bar" style="transition-duration: 300ms; width: {{progress}}%;">
+        <div class="progress">{{progress}}%</div>
       </div>
-      {% endfor %}
+    
+      <div class="label">
+        <div class="ui grid">
+          <div class="three column row">
+            <div class="column">开始于{{start_time.humanize}}</div>
+            <div class="column">
+              {% if progress == 100 %}
+              已完成所有步骤
+              {% else %}
+              {{confirm_steps|length}} / {{step_count}}
+              {% endif %}
+            </div>
+            <div class="column">已持续{{diff_time}}</div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="eight wide column">
-    <div class="ui green segment">
-      {{steps.0.label.desc}}
+    
+    <h3 class="ui header">
+      <i class="columns icon"></i>
+      <div class="content">进度视图</div>
+    </h3>
+    
+    <div class="ui grid">
+      <div class="eight wide column">
+        <div class="ui vertical steps">
+          {% for step in steps %}
+          {% if step.is_confirm %}
+          <div class="completed step" title="{{step.desc}}">
+            <i class="truck icon"></i>
+          {% else %}
+          <div class="active step" title="{{step.desc}}">
+            <i class="spinner icon"></i>
+          {% endif %}
+            <div class="content">
+              <div class="title">{{step.status}}</div>
+              {% if step.is_confirm %}
+              <div class="description">{{step.confirm_time|date:"Y-m-d H:i:s"}}</div>
+              {% else %}
+              <div class="description">正在执行..</div>
+              {% endif %}
+            </div>
+            {% if step.order == 1 %}
+            {% else %}
+            <div class="floating ui circular teal label" title="第{{step.order}}次执行<{{step.status}}>">{{step.order}}</div>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="eight wide column">
+        <div class="ui green segment">
+          {{steps.0.label.desc}}
+        </div>
+      </div>
     </div>
-  </div>
+    
+    <h3 class="ui header">
+      <i class="table icon"></i>
+      <div class="content">详细纪录</div>
+    </h3>
+    
+    <table class="ui celled table">
+       <thead>
+         <tr>
+           <th>Label</th>
+           <th>Name</th>
+           <th>Status</th>
+           <th>Is_confirm</th>
+           <th>Insert</th>
+           <th>Confirm Time</th>
+         </tr>
+       </thead>
+       <tbody>
+         {% for step in steps %}
+         <tr title="{{step.desc}}">
+             <td><a class='item' href="/?label={{step.label}}">{{step.label.name|cut_string:12}}</a></td>
+             <td>{{step.name|cut_string:24}}</td>
+             <td><b>{{step.status|cut_string:10}}</b></td>
+             <td>
+                 {% if step.is_confirm %}
+                 <i class="checkmark icon"></i>
+                 {% else %}
+                 <i class="remove icon"></i>
+                 {% endif %}
+             </td>
+             <td>{{step.insert|date:"Y-m-d H:i:s"}}</td>
+             <td>{{step.confirm_time|date:"Y-m-d H:i:s"}}</td>
+         </tr>
+         {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th>{{steps|length}} Entry</th>
+              <th>{{step_status|length}} Status</th>
+          </tr>
+        </tfoot>
+    </table>
+  <div class="three wide column"></div>
 </div>
-
-<h3 class="ui header">
-  <i class="table icon"></i>
-  <div class="content">详细纪录</div>
-</h3>
-
-<table class="ui celled table">
-   <thead>
-     <tr>
-       <th>Label</th>
-       <th>Name</th>
-       <th>Status</th>
-       <th>Is_confirm</th>
-       <th>Insert</th>
-       <th>Confirm Time</th>
-     </tr>
-   </thead>
-   <tbody>
-     {% for step in steps %}
-     <tr title="{{step.desc}}">
-         <td><a class='item' href="/?label={{step.label}}">{{step.label.name|cut_string:12}}</a></td>
-         <td>{{step.name|cut_string:24}}</td>
-         <td><b>{{step.status|cut_string:10}}</b></td>
-         <td>
-             {% if step.is_confirm %}
-             <i class="checkmark icon"></i>
-             {% else %}
-             <i class="remove icon"></i>
-             {% endif %}
-         </td>
-         <td>{{step.insert|date:"Y-m-d H:i:s"}}</td>
-         <td>{{step.confirm_time|date:"Y-m-d H:i:s"}}</td>
-     </tr>
-     {% endfor %}
-    </tbody>
-    <tfoot>
-      <tr>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th>{{steps|length}} Entry</th>
-          <th>{{step_status|length}} Status</th>
-      </tr>
-    </tfoot>
-</table>
 {% endblock %}

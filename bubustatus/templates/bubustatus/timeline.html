@@ -1,0 +1,68 @@
+{% extends "bubustatus/base.html" %}
+{% load staticfiles %}
+{% load bubustatus %}
+
+{% block title %}Timeline{% endblock %}
+
+{% block content %}
+
+<div class="ui grid">
+  <div class="four wide column"></div>
+
+  <div class="eight wide column">
+
+    <h3 class="ui header">
+      <i class="grid layout icon"></i>
+      <div class="content">Timeline</div>
+    </h3>
+
+    <div class="ui eight wide column centered">
+    <div class="ui feed">
+      {% for step in steps %}
+          <div class="event">
+            <div class="label">
+              <img src="{{ step.label.photo.url }}"></img>
+            </div>
+            <div class="content">
+              <div class="summary">
+                  <a href="/?label={{step.label.name}}">{{ step.label.name }}</a>
+                  {% if step.action == 'confirm' %}
+                  确认了
+                  {% else %}
+                  提交了
+                  {% endif %}
+                  <a href="/step/{{step.label.name}}/{{step.name}}">{{ step.name }}</a> - <a>{{step.status}}</a>任务
+                <div class="date">
+                  {{ step.insert|humanize }}
+                </div>
+              </div>
+    
+              <div class="meta">
+                <div class="description">
+                  <p>{{ step.desc }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+           
+          {% if step.is_confirm %}
+          <div class="ui right floated icon circular mini green button" title="已确认">
+            <i class="checkmark icon"></i>
+          </div>
+          {% else %}
+          <div class="ui right floated icon circular mini red button" title="未确认">
+            <i class="remove icon"></i>
+          </div>
+          {% endif %}
+          {% if step.desc|urlize|get_url %}
+          <div class="ui right floated icon circular mini teal button" onclick="window.open('{{step.desc|urlize|get_url}}')">
+            <i class="linkify icon"></i>
+          </div>
+          {% endif %}
+      {% endfor %}
+    </div>
+    </div> <!-- end feed -->
+  <div class="four wide column"></div>
+</div>
+
+{% endblock %}

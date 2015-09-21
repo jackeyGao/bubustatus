@@ -5,6 +5,7 @@ from django.db import models
 class Label(models.Model):
     name = models.CharField(max_length=45, primary_key=True)
     step_count = models.IntegerField()
+    photo = models.ImageField(upload_to='photos/%Y/%m/%d') 
     desc = models.TextField()
 
     def __unicode__(self):

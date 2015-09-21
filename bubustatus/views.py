@@ -2,6 +2,7 @@
 # Create your views here.
 from __future__ import division
 
+import copy
 import arrow
 from django.http import QueryDict, Http404
 from django.core.exceptions import FieldError
@@ -79,4 +80,24 @@ def step(request, label, name):
 
     return render_to_response('bubustatus/detail.html', locals())
 
+
+def timeline(request):
+    queryset = Step.objects.filter(label="gemini").order_by('-insert')[0:20]
+
+    steps = []
+    for step in queryset:
+        if step.is_confirm:
+            _step = copy.deepcopy(step)
+            _step.action = "commit"
+            _step.thetime = step.insert
+            step.action = "confirm"
+            step.thetime = step.confirm_time
+
+            steps.append(_step)
+            steps.append(step)
+        else:
+            step.thetime = step.insert
+            steps.append(step)
+        
+    return render_to_response('bubustatus/timeline.html', locals())
 

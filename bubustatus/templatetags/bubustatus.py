@@ -6,6 +6,8 @@ mail: junqi.gao@shuyun.com
 Created Time: 六  9/12 14:20:55 2015
 '''
 import sys
+import re
+import arrow
 from django import template
 
 reload(sys)
@@ -38,3 +40,16 @@ def cut_string(string, need_length=5):
     
     return string
 
+@register.filter
+def humanize(datetime):
+    return arrow.get(datetime).humanize()
+
+
+@register.filter
+def get_url(text):
+    urlre = re.compile('href="(.*?)"')
+    urls = re.findall(urlre,text)
+    if urls:
+        return urls[0]
+
+    return None

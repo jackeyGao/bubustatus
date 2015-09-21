@@ -117,6 +117,8 @@ TATICFILES_DIRS = (
 
 
 STATICFILES_STORAGE = "qiniustorage.backends.QiniuStorage"
+DEFAULT_FILE_STORAGE = 'qiniustorage.backends.QiniuStorage'
+
 QINIU_ACCESS_KEY = '-9GvtvlzlYsJThtrNMVocrhcsh3lmOTAuY6aXEBT'
 QINIU_SECRET_KEY = 'l7fqBwgd-3M5ApcquLCFb-KKmLmNcIrlpQGJbBem'
 QINIU_BUCKET_NAME = 'privacy'
