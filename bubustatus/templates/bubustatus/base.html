@@ -16,11 +16,11 @@
  
     <div class="ui top inverted fixed hidden menu">
       <a class="item"><h3 class="ui green header">状态系统</h3></a>
-      <a class="item" href="/"><b>Home</b></a>
-      <a class="item" href="/timeline"><b>Timeline</b></a>
-      <a class="item" href="/labels"><b>Labels</b></a>
+      <a class="item" href="{% url "home" %}"><b>Home</b></a>
+      <a class="item" href="{% url "timeline" %}"><b>Timeline</b></a>
+      <a class="item" href="{% url "labels" %}"><b>Labels</b></a>
       <div class="right menu">
-        <a class="item" href="/admin/">Admin</a>
+          <a class="item" href="{% url "admin:index" %}">Admin</a>
         <a class="item">Help</a>
       </div>
     </div>

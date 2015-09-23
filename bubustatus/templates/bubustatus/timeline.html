@@ -25,13 +25,13 @@
             </div>
             <div class="content">
               <div class="summary">
-                  <a href="/?label={{step.label.name}}">{{ step.label.name }}</a>
+                  <a href="{% url "home" %}?label={{step.label.name}}">{{ step.label.name }}</a>
                   {% if step.is_confirm %}
                   确认了
                   {% else %}
                   提交了
                   {% endif %}
-                  <a href="/step/{{step.label.name}}/{{step.name}}">{{ step.name }}</a> - <a>{{step.status}}</a>任务
+                  <a href="{% url "detail" step.label.name step.name %}">{{ step.name }}</a> - <a>{{step.status}}</a>任务
                 <div class="date">
                   {% if step.is_confirm %}
                   {{ step.confirm_time|humanize }}

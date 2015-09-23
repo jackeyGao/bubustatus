@@ -68,8 +68,8 @@
        <tbody>
          {% for step in steps %}
          <tr title="{{step.desc}}">
-             <td><a class='item' href="/?label={{step.label}}">{{step.label.name|cut_string:12}}</a></td>
-             <td><a class='item' href="/step/{{step.label.name}}/{{step.name}}">{{step.name|cut_string:24}}</a></td>
+             <td><a class='item' href="{% url "home" %}?label={{step.label}}">{{step.label.name|cut_string:12}}</a></td>
+             <td><a class='item' href="{% url "detail" step.label.name step.name %}">{{step.name|cut_string:24}}</a></td>
              <td><b>{{step.status|cut_string:10}}</b></td>
              <td>
                  {% if step.is_confirm %}
