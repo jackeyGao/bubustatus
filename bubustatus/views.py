@@ -82,7 +82,7 @@ def step(request, label, name):
 
 
 def timeline(request):
-    steps = Step.objects.filter(label="gemini").order_by('-confirm_time')[0:200]
+    steps = Step.objects.order_by('-confirm_time')[0:200]
 
     return render_to_response('bubustatus/timeline.html', locals())
 
