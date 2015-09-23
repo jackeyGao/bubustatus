@@ -68,9 +68,7 @@ def step(request, label, name):
         raise Http404(u"%s step没有找到, 请确认." % name)
 
     step_count = steps[0].label.step_count
-    step_count = int((len(steps) + step_count - 1) / step_count) * step_count
-
-    confirm_steps = steps.filter(is_confirm=True)
+    confirm_steps = list(set([ s.status for s in steps.filter(is_confirm=True) ]))
     progress = int(round(len(confirm_steps) / step_count, 2) * 100)
     step_status = list(set([ s.status for s in steps ]))
 
