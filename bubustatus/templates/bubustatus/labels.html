@@ -20,7 +20,7 @@
         <div class="column">
           <div class="ui fluid card">
             <div class="content">
-                <div class="header" href="#"><a href="{% url "home" %}?label={{label.name}}">{{label.name|cut_string:12}}</a></div>
+                <div class="header" href="#"><a href="{% url "home" %}?label={{label.name}}">{{label.name|cut_string:9}}</a></div>
               <div class="floating ui circular teal label">{{steps|in_label_name:label.name|length}}</div>
             </div>
           </div>
