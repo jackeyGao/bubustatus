@@ -29,15 +29,15 @@
       <div class="four fields">
          <div class="ui field labeled input">
            <a class="ui label">Label</a>
-           <input type="text" placeholder="输入label名" value="{% if params.label %}{{ params.label }}{% endif %}" name="label">
+           <input type="text" placeholder="输入label名" value="{% if params.label__name__contains %}{{ params.label__name__contains }}{% endif %}" name="label__name__contains">
          </div>
          <div class="ui field labeled input">
            <a class="ui label">Name</a>
-           <input type="text" placeholder="输入Step名" value="{% if params.name %} {{ params.name }}{% endif %}" name="name">
+           <input type="text" placeholder="输入Step名" value="{% if params.name__contains %}{{ params.name__contains }}{% endif %}" name="name__contains">
          </div>
          <div class="ui field labeled input">
            <a class="ui label">Status</a>
-           <input type="text" placeholder="输入status" value="{% if params.status %}{{ params.status }}{% endif %}" name="status">
+           <input type="text" placeholder="输入status" value="{% if params.status__contains %}{{ params.status__contains }}{% endif %}" name="status__contains">
          </div>
       </div>
       
