@@ -5,11 +5,13 @@ from bubustatus.models import Step, Label
 
 
 class LabelAdmin(admin.ModelAdmin):
-    list_display = ('name', 'desc')
+    list_display = ('name', 'step_count', 'desc')
 
 
 class StepAdmin(admin.ModelAdmin):
-    list_display = ('name', 'status', 'insert', 'desc')
+    list_display = ('name', 'status', 'is_confirm', 'insert', 'confirm_time')
+    list_filter = ('label', 'insert', 'confirm_time')
+    search_fields = ('label', 'name', 'status')
 
 admin.site.register(Label, LabelAdmin)
 admin.site.register(Step, StepAdmin)

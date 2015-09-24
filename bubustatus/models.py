@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
 # Create your models here.
 
@@ -7,6 +8,9 @@ class Label(models.Model):
     step_count = models.IntegerField()
     photo = models.ImageField(upload_to='photos/%Y/%m/%d') 
     desc = models.TextField()
+
+    def get_absolute_url(self):
+        return reverse('home') + '?label=' + self.name
 
     def __unicode__(self):
         return unicode(self.name)
@@ -40,6 +44,12 @@ class Step(models.Model):
 
         order = (len(queryset) + self.label.step_count - 1) / self.label.step_count
         return order * self.label.step_count
+
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={
+            'label': self.label, 
+            'name': self.name}
+        )
 
     def label_name(self):
         return self.label.name
